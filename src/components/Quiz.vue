@@ -19,10 +19,9 @@
           v-html="answer"
           @click.prevent="handleButtonClick"
           :disabled="currentQuestion.rightAnswer !== null"
-        ></button>
+        />
       </form>
     </div>
-    <pre>{{ currentQuestion }}</pre>
   </div>
 </template>
 
@@ -34,6 +33,14 @@ export default {
       loading: true,
       index: 0,
     };
+  },
+  watch: {
+    quizCompleted(completed) {
+      completed &&
+        setTimeout(() => {
+          this.$emit("quiz-completed", this.score);
+        }, 3000);
+    },
   },
   computed: {
     currentQuestion() {
@@ -195,10 +202,9 @@ h1 {
 
 .divider {
   margin-top: 0.5rem;
-  padding: 1rem;
-  border: 0.5rem solid rgba(102, 255, 166, 0.7);
+  padding: 0.5rem 0;
+  border: 0.4rem solid rgba(102, 255, 166, 0.7);
   border-radius: 2px;
-  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 form {
