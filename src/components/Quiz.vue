@@ -99,15 +99,6 @@ export default {
       return questionsAnswered === this.questions.length;
     },
   },
-  watch: {
-    quizCompleted(completed) {
-      console.log(completed);
-      completed &&
-        setTimeout(() => {
-          this.$emit("quiz-completed", this.score);
-        }, 2000);
-    },
-  },
   methods: {
     async fetchQuestions() {
       this.loading = true;
@@ -147,12 +138,9 @@ export default {
       let question = this.questions[index];
       if (question.userAnswer) {
         if (this.index < this.questions.length - 1) {
-          setTimeout(
-            function () {
-              this.index += 1;
-            }.bind(this),
-            2000
-          );
+          setTimeout(() => {
+            this.index++;
+          }, 2000);
         }
         if (question.userAnswer === question.correct_answer) {
           event.target.classList.add("rightAnswer");
